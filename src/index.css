@@ -1,0 +1,244 @@
+@import "tailwindcss";
+
+/* 기존 HTML의 darkMode: "class" 설정을 v4 문법으로 옮긴 것 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * 세로 공간이 좁은 화면. 가로로 돌린 휴대폰, 작은 노트북, 창을 세로로 줄인 데스크톱이 여기 걸립니다.
+ * 이런 화면에서 하단 고정 버튼을 그대로 두면 입력 필드나 사진 드롭존을 통째로 덮어버립니다.
+ * 폭이 아니라 높이로 갈라야 하는 상황이라 breakpoint로는 잡히지 않습니다.
+ */
+@custom-variant short (@media (max-height: 40rem));
+
+/*
+ * 세로로 정말 여유가 있는 큰 화면. 없어도 그만인 장식 요소를 여기서만 보여줍니다.
+ * 폭만 보고 데스크톱이라 판단하면 1024×768 같은 화면에서 장식이 본문을 밀어내 스크롤이 생깁니다.
+ */
+@custom-variant roomy (@media (min-width: 48rem) and (min-height: 52rem));
+
+/*
+ * 원래 HTML 4장에 인라인으로 복붙돼 있던 tailwind.config를 한곳으로 모았습니다.
+ * 색상 하나 바꾸려고 4개 파일을 고칠 필요가 없어집니다.
+ */
+@theme {
+  /* ---- Colors ---- */
+  --color-primary: #000000;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #1c1b1b;
+  --color-on-primary-container: #858383;
+  --color-primary-fixed: #e5e2e1;
+  --color-primary-fixed-dim: #c8c6c5;
+  --color-on-primary-fixed: #1c1b1b;
+  --color-on-primary-fixed-variant: #474646;
+  --color-inverse-primary: #c8c6c5;
+
+  --color-secondary: #5d5f5f;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #dcdddd;
+  --color-on-secondary-container: #5f6161;
+  --color-secondary-fixed: #e2e2e2;
+  --color-secondary-fixed-dim: #c6c6c7;
+  --color-on-secondary-fixed: #1a1c1c;
+  --color-on-secondary-fixed-variant: #454747;
+
+  --color-tertiary: #000000;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #241a00;
+  --color-on-tertiary-container: #a08000;
+  --color-tertiary-fixed: #ffe088;
+  --color-tertiary-fixed-dim: #e9c349;
+  --color-on-tertiary-fixed: #241a00;
+  --color-on-tertiary-fixed-variant: #574500;
+
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  --color-background: #fbf9f8;
+  --color-on-background: #1b1c1c;
+  --color-surface: #fbf9f8;
+  --color-on-surface: #1b1c1c;
+  --color-surface-variant: #e4e2e2;
+  --color-on-surface-variant: #444748;
+  --color-surface-dim: #dbdad9;
+  --color-surface-bright: #fbf9f8;
+  --color-surface-tint: #5f5e5e;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f5f3f3;
+  --color-surface-container: #efeded;
+  --color-surface-container-high: #e9e8e7;
+  --color-surface-container-highest: #e4e2e2;
+  --color-inverse-surface: #303031;
+  --color-inverse-on-surface: #f2f0f0;
+
+  --color-outline: #747878;
+  --color-outline-variant: #c4c7c7;
+
+  /* ---- Fonts ---- */
+  --font-display-lg: "Playfair Display";
+  --font-headline-lg: "Playfair Display";
+  --font-headline-lg-mobile: "Playfair Display";
+  --font-headline-md: "Playfair Display";
+  --font-body-lg: "Hanken Grotesk";
+  --font-body-md: "Hanken Grotesk";
+  --font-label-md: "Hanken Grotesk";
+  --font-label-sm: "Hanken Grotesk";
+
+  /* ---- Type scale ---- */
+  --text-display-lg: 48px;
+  --text-display-lg--line-height: 56px;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 700;
+
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 40px;
+  --text-headline-lg--font-weight: 600;
+
+  --text-headline-lg-mobile: 28px;
+  --text-headline-lg-mobile--line-height: 36px;
+  --text-headline-lg-mobile--font-weight: 600;
+
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 32px;
+  --text-headline-md--font-weight: 500;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--font-weight: 400;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+  --text-body-md--font-weight: 400;
+
+  --text-label-md: 14px;
+  --text-label-md--line-height: 20px;
+  --text-label-md--letter-spacing: 0.05em;
+  --text-label-md--font-weight: 600;
+
+  --text-label-sm: 12px;
+  --text-label-sm--line-height: 16px;
+  --text-label-sm--letter-spacing: 0.03em;
+  --text-label-sm--font-weight: 500;
+
+  /* ---- Spacing ---- */
+  --spacing-unit: 8px;
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 20px;
+  --spacing-margin-desktop: 64px;
+
+  /* ---- Radius ---- */
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  user-select: none;
+}
+
+/* 밑줄 하나만 남기는 에디토리얼 인풋 */
+.atelier-input {
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  background: transparent;
+  padding: 12px 0;
+  transition: border-bottom 0.3s ease;
+}
+.atelier-input:focus {
+  outline: none;
+  border-bottom: 2px solid #000000;
+  box-shadow: none;
+}
+/* 숫자 인풋의 스피너 제거 — 디자인상 화살표가 보이면 안 됩니다 */
+.atelier-input::-webkit-outer-spin-button,
+.atelier-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.atelier-input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.editorial-line {
+  height: 1px;
+  background-color: #e0e0e0;
+  width: 100%;
+}
+
+/*
+ * 히어로 사진은 571×1024 세로 이미지입니다.
+ *
+ * 화면 비율이 사진보다 세로로 길면(대부분의 휴대폰) cover로 채워도 좌우가 조금 잘릴 뿐이라
+ * 사진이 화면을 꽉 채우는 편이 낫습니다. 반대로 화면이 사진보다 가로로 넓어지는 순간부터는
+ * cover가 모델의 머리와 발을 잘라내기 시작하므로 contain으로 전환합니다.
+ *
+ * 분기 기준이 너비(md 같은 breakpoint)가 아니라 종횡비인 이유가 이것입니다.
+ * 폭이 좁아도 높이까지 짧으면(가로 모드 태블릿 등) 똑같이 잘립니다.
+ *
+ * contain으로 전환된 뒤에는 항상 높이가 먼저 맞춰지므로 사진이 컨테이너 높이를 꽉 채웁니다.
+ * 덕분에 아래 hero-backdrop 그라디언트의 바닥선과 사진 속 바닥선이 정확히 이어집니다.
+ */
+.hero-photo {
+  background-image: url("/main_hero.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+@media (min-aspect-ratio: 571 / 1024) {
+  .hero-photo {
+    background-size: contain;
+    /* 왼쪽에 자리를 비워 헤드라인이 모델 위에 겹치지 않게 합니다. */
+    background-position: right center;
+  }
+}
+
+/*
+ * contain일 때 사진 왼쪽에 생기는 빈 공간을 사진 속 스튜디오 배경과 같은 색으로 잇습니다.
+ * 색과 바닥선(81%) 위치는 원본 이미지의 좌측 가장자리 픽셀에서 그대로 뽑았습니다.
+ * 이미지를 교체하면 이 값도 다시 뽑아야 합니다.
+ */
+.hero-backdrop {
+  background: linear-gradient(
+    to bottom,
+    #8cb4c6 0%,
+    #a5c5d4 10%,
+    #b6cedc 30%,
+    #afcbd9 50%,
+    #97bccc 70%,
+    #95b5c6 80.5%,
+    #6c7a7f 81.5%,
+    #8d959a 90%,
+    #98a0a2 100%
+  );
+}
+
+.hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+@keyframes progress-glow {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+.gold-line {
+  background-color: #ffe088;
+  height: 2px;
+  animation: progress-glow 2s infinite ease-in-out;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #fbf9f8; }
+::-webkit-scrollbar-thumb { background: #e0e0e0; }
